@@ -91,7 +91,7 @@ function Address() {
         ) : (
           <MDBox mt={0} mb={2}>
             <MDTypography variant="button" color="text" fontWeight="regular">
-              Nenhum Endereço encontrado
+              Nenhum endereço encontrado
             </MDTypography>
           </MDBox>
         )}
