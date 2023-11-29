@@ -1,39 +1,26 @@
 /* eslint-disable */
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-import { useState } from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 // @mui material components
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React examples
 import DataTable from "examples/Tables/DataTable";
 
-// Data
-import data from "layouts/dashboard/components/Projects/data";
-
-function Addresses() {
-  const { columns, rows } = data();
+function Address({ addresses }) {
+  const columns = [
+    { Header: "CEP", accessor: "CEP" },
+    { Header: "Endereço", accessor: "ENDERECO" },
+    { Header: "Bairro", accessor: "BAIRRO" },
+    { Header: "Cidade", accessor: "CIDADE" },
+    { Header: "UF", accessor: "UF" },
+  ];
   const [menu, setMenu] = useState(null);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
@@ -78,17 +65,26 @@ function Addresses() {
         </MDBox>
         {renderMenu}
       </MDBox>
-      <MDBox>
-        <DataTable
+      <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+        {addresses && addresses.length > 0 ? (
+          <DataTable
           table={{ columns, rows }}
           showTotalEntries={false}
           isSorted={false}
           noEndBorder
           entriesPerPage={false}
         />
+        ) : (
+          <MDBox mt={0} mb={2}>
+            <MDTypography variant="button" color="text" fontWeight="regular">
+              Nenhum Endereço encontrado
+            </MDTypography>
+          </MDBox>
+        )}
+        
       </MDBox>
     </Card>
   );
 }
 
-export default Addresses;
+export default Address;
