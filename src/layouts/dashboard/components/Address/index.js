@@ -6,6 +6,7 @@ import Icon from "@mui/material/Icon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MDBox from "components/MDBox";
+import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import DataTable from "examples/Tables/DataTable";
 
@@ -57,10 +58,15 @@ function Address() {
 
   return (
     <Card>
+      <MDBox p={2}>
+        <MDButton variant="gradient" color="info" onClick={fetchAddresses}>
+          Buscar Endereços
+        </MDButton>
+      </MDBox>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
         <MDBox>
           <MDTypography variant="h6" gutterBottom>
-            Addresses
+            Endereços
           </MDTypography>
           <MDBox display="flex" alignItems="center" lineHeight={0}>
             
@@ -73,13 +79,10 @@ function Address() {
         </MDBox>
         {renderMenu}
       </MDBox>
-      <MDBox>
-        <button onClick={fetchAddresses}>Buscar Endereços</button> {/* Botão para buscar endereços */}
-      </MDBox>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
         {addressData && addressData.length > 0 ? (
           <DataTable
-          table={{ columns, rows }}
+          table={{ columns, rows: addressData }}
           showTotalEntries={false}
           isSorted={false}
           noEndBorder
