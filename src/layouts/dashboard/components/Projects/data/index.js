@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable */
 /* eslint-disable react/function-component-definition */
 /**
 =========================================================
@@ -71,16 +71,16 @@ export default function data() {
 
   return {
     columns: [
-      { Header: "companies", accessor: "companies", width: "45%", align: "left" },
-      { Header: "members", accessor: "members", width: "10%", align: "left" },
-      { Header: "budget", accessor: "budget", align: "center" },
-      { Header: "completion", accessor: "completion", align: "center" },
+      { Header: "Endereço", accessor: "endereco", width: "45%", align: "left" },
+      { Header: "Bairro", accessor: "bairro", width: "10%", align: "left" },
+      { Header: "Cidade", accessor: "cidade", align: "center" },
+      { Header: "UF", accessor: "uf", align: "center" },
     ],
 
     rows: [
       {
-        companies: <Company image={logoXD} name="Material UI XD Version" />,
-        members: (
+        endereco: <Company image={logoXD} name="Material UI XD Version" />,
+        bairro: (
           <MDBox display="flex" py={1}>
             {avatars([
               [team1, "Ryan Tompson"],
@@ -90,118 +90,14 @@ export default function data() {
             ])}
           </MDBox>
         ),
-        budget: (
+        cidade: (
           <MDTypography variant="caption" color="text" fontWeight="medium">
             $14,000
           </MDTypography>
         ),
-        completion: (
+        uf: (
           <MDBox width="8rem" textAlign="left">
             <MDProgress value={60} color="info" variant="gradient" label={false} />
-          </MDBox>
-        ),
-      },
-      {
-        companies: <Company image={logoAtlassian} name="Add Progress Track" />,
-        members: (
-          <MDBox display="flex" py={1}>
-            {avatars([
-              [team2, "Romina Hadid"],
-              [team4, "Jessica Doe"],
-            ])}
-          </MDBox>
-        ),
-        budget: (
-          <MDTypography variant="caption" color="text" fontWeight="medium">
-            $3,000
-          </MDTypography>
-        ),
-        completion: (
-          <MDBox width="8rem" textAlign="left">
-            <MDProgress value={10} color="info" variant="gradient" label={false} />
-          </MDBox>
-        ),
-      },
-      {
-        companies: <Company image={logoSlack} name="Fix Platform Errors" />,
-        members: (
-          <MDBox display="flex" py={1}>
-            {avatars([
-              [team1, "Ryan Tompson"],
-              [team3, "Alexander Smith"],
-            ])}
-          </MDBox>
-        ),
-        budget: (
-          <MDTypography variant="caption" color="text" fontWeight="medium">
-            Not set
-          </MDTypography>
-        ),
-        completion: (
-          <MDBox width="8rem" textAlign="left">
-            <MDProgress value={100} color="success" variant="gradient" label={false} />
-          </MDBox>
-        ),
-      },
-      {
-        companies: <Company image={logoSpotify} name="Launch our Mobile App" />,
-        members: (
-          <MDBox display="flex" py={1}>
-            {avatars([
-              [team4, "Jessica Doe"],
-              [team3, "Alexander Smith"],
-              [team2, "Romina Hadid"],
-              [team1, "Ryan Tompson"],
-            ])}
-          </MDBox>
-        ),
-        budget: (
-          <MDTypography variant="caption" color="text" fontWeight="medium">
-            $20,500
-          </MDTypography>
-        ),
-        completion: (
-          <MDBox width="8rem" textAlign="left">
-            <MDProgress value={100} color="success" variant="gradient" label={false} />
-          </MDBox>
-        ),
-      },
-      {
-        companies: <Company image={logoJira} name="Add the New Pricing Page" />,
-        members: (
-          <MDBox display="flex" py={1}>
-            {avatars([[team4, "Jessica Doe"]])}
-          </MDBox>
-        ),
-        budget: (
-          <MDTypography variant="caption" color="text" fontWeight="medium">
-            $500
-          </MDTypography>
-        ),
-        completion: (
-          <MDBox width="8rem" textAlign="left">
-            <MDProgress value={25} color="info" variant="gradient" label={false} />
-          </MDBox>
-        ),
-      },
-      {
-        companies: <Company image={logoInvesion} name="Redesign New Online Shop" />,
-        members: (
-          <MDBox display="flex" py={1}>
-            {avatars([
-              [team1, "Ryan Tompson"],
-              [team4, "Jessica Doe"],
-            ])}
-          </MDBox>
-        ),
-        budget: (
-          <MDTypography variant="caption" color="text" fontWeight="medium">
-            $2,000
-          </MDTypography>
-        ),
-        completion: (
-          <MDBox width="8rem" textAlign="left">
-            <MDProgress value={40} color="info" variant="gradient" label={false} />
           </MDBox>
         ),
       },

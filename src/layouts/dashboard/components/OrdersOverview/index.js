@@ -1,35 +1,39 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
+/* eslint-disable */
+import React, { useState } from "react";
+import axios from "axios";
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
-
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-
-// Material Dashboard 2 React example components
-import TimelineItem from "examples/Timeline/TimelineItem";
+import MDInput from "components/MDInput";
+import MDButton from "components/MDButton";
 
 function OrdersOverview() {
+  const [cep, setCep] = useState("");
+  const [endereco, setEndereco] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [uf, setUf] = useState("");
+
+  const consultarCep = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3003/api/enderecos/consulta-cep/${cep}`);
+      const data = response.data;
+      setEndereco(data.ENDERECO);
+      setBairro(data.BAIRRO);
+      setCidade(data.CIDADE);
+      setUf(data.UF);
+    } catch (error) {
+      console.error("Erro ao consultar o CEP:", error);
+      // Lide com o erro aqui, por exemplo, mostrando uma mensagem de erro ao usuário.
+    }
+  };
+
   return (
     <Card sx={{ height: "100%" }}>
       <MDBox pt={3} px={3}>
         <MDTypography variant="h6" fontWeight="medium">
-          Orders overview
+          Consulta de CEP
         </MDTypography>
         <MDBox mt={0} mb={2}>
           <MDTypography variant="button" color="text" fontWeight="regular">
@@ -38,45 +42,36 @@ function OrdersOverview() {
             </MDTypography>
             &nbsp;
             <MDTypography variant="button" color="text" fontWeight="medium">
-              24%
+              
             </MDTypography>{" "}
-            this month
+            Insira o CEP a ser consultado no campo abaixo
           </MDTypography>
         </MDBox>
       </MDBox>
       <MDBox p={2}>
-        <TimelineItem
-          color="success"
-          icon="notifications"
-          title="$2400, Design changes"
-          dateTime="22 DEC 7:20 PM"
-        />
-        <TimelineItem
-          color="error"
-          icon="inventory_2"
-          title="New order #1832412"
-          dateTime="21 DEC 11 PM"
-        />
-        <TimelineItem
-          color="info"
-          icon="shopping_cart"
-          title="Server payments for April"
-          dateTime="21 DEC 9:34 PM"
-        />
-        <TimelineItem
-          color="warning"
-          icon="payment"
-          title="New card added for order #4395133"
-          dateTime="20 DEC 2:20 AM"
-        />
-        <TimelineItem
-          color="primary"
-          icon="vpn_key"
-          title="New card added for order #4395133"
-          dateTime="18 DEC 4:54 AM"
-          lastItem
-        />
+        <MDInput type="text" label="CEP" fullWidth value={cep} onChange={(e) => setCep(e.target.value)} />
       </MDBox>
+      <MDBox p={2}>
+        <MDButton variant="gradient" color="info" onClick={consultarCep}>
+          Consultar
+        </MDButton>
+      </MDBox>
+      {endereco && (
+        <MDBox p={2}>
+          <MDTypography variant="body1">
+            Endereço: {endereco}
+          </MDTypography>
+          <MDTypography variant="body1">
+            Bairro: {bairro}
+          </MDTypography>
+          <MDTypography variant="body1">
+            Cidade: {cidade}
+          </MDTypography>
+          <MDTypography variant="body1">
+            UF: {uf}
+          </MDTypography>
+        </MDBox>
+      )}
     </Card>
   );
 }
