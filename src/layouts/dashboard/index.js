@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
 =========================================================
 * Material Dashboard 2 React - v2.2.0
@@ -34,6 +35,7 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import Addresses from "layouts/dashboard/components/Address";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
@@ -147,7 +149,7 @@ function Dashboard() {
         <MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
-              <Projects />
+              <Addresses />
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <OrdersOverview />
