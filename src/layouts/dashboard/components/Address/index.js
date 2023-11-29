@@ -1,19 +1,15 @@
 /* eslint-disable */
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-
-// @mui material components
+import axios from "axios"; // Importe o Axios ou a biblioteca que você está usando para fazer chamadas à API.
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-
-// Material Dashboard 2 React examples
 import DataTable from "examples/Tables/DataTable";
 
-function Address({ addresses }) {
+function Address() {
   const columns = [
     { Header: "CEP", accessor: "CEP" },
     { Header: "Endereço", accessor: "ENDERECO" },
@@ -21,10 +17,22 @@ function Address({ addresses }) {
     { Header: "Cidade", accessor: "CIDADE" },
     { Header: "UF", accessor: "UF" },
   ];
+
   const [menu, setMenu] = useState(null);
+  const [addressData, setAddressData] = useState([]); // Estado para armazenar os dados da API.
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
+
+  const fetchAddresses = async () => {
+    try {
+      const response = await axios.get("http://localhost:3003/api/enderecos");
+      const data = response.data;
+      setAddressData(data); // Atualize o estado com os dados da API.
+    } catch (error) {
+      console.error("Erro ao buscar endereços:", error);
+    }
+  };
 
   const renderMenu = (
     <Menu
@@ -65,8 +73,11 @@ function Address({ addresses }) {
         </MDBox>
         {renderMenu}
       </MDBox>
+      <MDBox>
+        <button onClick={fetchAddresses}>Buscar Endereços</button> {/* Botão para buscar endereços */}
+      </MDBox>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-        {addresses && addresses.length > 0 ? (
+        {addressData && addressData.length > 0 ? (
           <DataTable
           table={{ columns, rows }}
           showTotalEntries={false}
