@@ -8,14 +8,17 @@ import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 
-function OrdersOverview() {
+function PostalCode() {
   const [cep, setCep] = useState("");
   const [endereco, setEndereco] = useState("");
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const consultarCep = async () => {
+    setIsLoading(true); // Ativa o indicador de carregamento
+
     try {
       const response = await axios.get(`http://localhost:3003/api/enderecos/consulta-cep/${cep}`);
       const data = response.data;
@@ -26,6 +29,8 @@ function OrdersOverview() {
     } catch (error) {
       console.error("Erro ao consultar o CEP:", error);
       // Lide com o erro aqui, por exemplo, mostrando uma mensagem de erro ao usuário.
+    } finally {
+      setIsLoading(false); // Desativa o indicador de carregamento, independentemente do resultado
     }
   };
 
@@ -52,8 +57,13 @@ function OrdersOverview() {
         <MDInput type="text" label="CEP" fullWidth value={cep} onChange={(e) => setCep(e.target.value)} />
       </MDBox>
       <MDBox p={2}>
-        <MDButton variant="gradient" color="info" onClick={consultarCep}>
-          Consultar
+        <MDButton
+          variant="gradient"
+          color="info"
+          onClick={consultarCep}
+          disabled={isLoading} // Desativa o botão durante o carregamento
+        >
+          {isLoading ? "Consultando..." : "Consultar"}
         </MDButton>
       </MDBox>
       {endereco && (
@@ -76,4 +86,4 @@ function OrdersOverview() {
   );
 }
 
-export default OrdersOverview;
+export default PostalCode;

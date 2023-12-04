@@ -13,7 +13,7 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
-    "import/no-webpack-loader-syntax": ["off"]
+    
   },
   "settings": { "import/resolver": { "node": { "paths": ["src"] } } }
 }

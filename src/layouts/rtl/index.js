@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /**
 =========================================================
 * Material Dashboard 2 React - v2.2.0
@@ -35,7 +37,7 @@ import reportsLineChartData from "layouts/rtl/data/reportsLineChartData";
 
 // RTL components
 import Projects from "layouts/rtl/components/Projects";
-import OrdersOverview from "layouts/rtl/components/OrdersOverview";
+import PostalCode from "layouts/rtl/components/PostalCode";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setDirection } from "context";
@@ -163,7 +165,7 @@ function RTL() {
               <Projects />
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
-              <OrdersOverview />
+              <PostalCode />
             </Grid>
           </Grid>
         </MDBox>

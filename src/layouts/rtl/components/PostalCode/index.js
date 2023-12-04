@@ -1,3 +1,5 @@
+
+/* eslint-disable */
 /**
 =========================================================
 * Material Dashboard 2 React - v2.2.0
@@ -24,7 +26,7 @@ import MDTypography from "components/MDTypography";
 // Material Dashboard 2 React example components
 import TimelineItem from "examples/Timeline/TimelineItem";
 
-function OrdersOverview() {
+function PostalCode() {
   return (
     <Card sx={{ height: "100%" }}>
       <MDBox pt={3} px={3}>
@@ -81,4 +83,4 @@ function OrdersOverview() {
   );
 }
 
-export default OrdersOverview;
+export default PostalCode;

@@ -26,12 +26,16 @@ function Address() {
   const closeMenu = () => setMenu(null);
 
   const fetchAddresses = async () => {
+    setIsLoading(true); // Ativa o indicador de carregamento
+
     try {
       const response = await axios.get("http://localhost:3003/api/enderecos");
       const data = response.data;
       setAddressData(data); // Atualize o estado com os dados da API.
     } catch (error) {
       console.error("Erro ao buscar endereços:", error);
+    } finally {
+      setIsLoading(false); // Desativa o indicador de carregamento, independentemente do resultado
     }
   };
 
@@ -50,17 +54,22 @@ function Address() {
       open={Boolean(menu)}
       onClose={closeMenu}
     >
-      <MenuItem onClick={closeMenu}>Action</MenuItem>
-      <MenuItem onClick={closeMenu}>Another action</MenuItem>
-      <MenuItem onClick={closeMenu}>Something else</MenuItem>
+      <MenuItem onClick={closeMenu}>Ação 1</MenuItem>
+      <MenuItem onClick={closeMenu}>Ação 2</MenuItem>
+      <MenuItem onClick={closeMenu}>Ação 3</MenuItem>
     </Menu>
   );
 
   return (
     <Card>
       <MDBox p={2}>
-        <MDButton variant="gradient" color="info" onClick={fetchAddresses}>
-          Buscar Endereços
+        <MDButton
+          variant="gradient"
+          color="info"
+          onClick={fetchAddresses}
+          disabled={isLoading} // Desativa o botão durante o carregamento
+        >
+          {isLoading ? "Buscando..." : "Buscar Endereços"}
         </MDButton>
       </MDBox>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
@@ -68,9 +77,6 @@ function Address() {
           <MDTypography variant="h6" gutterBottom>
             Endereços
           </MDTypography>
-          <MDBox display="flex" alignItems="center" lineHeight={0}>
-            
-          </MDBox>
         </MDBox>
         <MDBox color="text" px={2}>
           <Icon sx={{ cursor: "pointer", fontWeight: "bold" }} fontSize="small" onClick={openMenu}>
@@ -82,12 +88,12 @@ function Address() {
       <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
         {addressData && addressData.length > 0 ? (
           <DataTable
-          table={{ columns, rows: addressData }}
-          showTotalEntries={false}
-          isSorted={false}
-          noEndBorder
-          entriesPerPage={false}
-        />
+            table={{ columns, rows: addressData }}
+            showTotalEntries={false}
+            isSorted={false}
+            noEndBorder
+            entriesPerPage={false}
+          />
         ) : (
           <MDBox mt={0} mb={2}>
             <MDTypography variant="button" color="text" fontWeight="regular">
@@ -95,7 +101,6 @@ function Address() {
             </MDTypography>
           </MDBox>
         )}
-        
       </MDBox>
     </Card>
   );

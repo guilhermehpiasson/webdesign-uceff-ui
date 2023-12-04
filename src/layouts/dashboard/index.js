@@ -34,7 +34,7 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
-import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import PostalCode from "layouts/dashboard/components/PostalCode";
 import Addresses from "layouts/dashboard/components/Address";
 
 function Dashboard() {
@@ -152,7 +152,7 @@ function Dashboard() {
               <Addresses />
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
-              <OrdersOverview />
+              <PostalCode />
             </Grid>
           </Grid>
         </MDBox>
