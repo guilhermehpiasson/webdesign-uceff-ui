@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState } from "react";
 import axios from "axios";
 import Card from "@mui/material/Card";
@@ -15,6 +14,14 @@ function PostalCode() {
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isValidCep, setIsValidCep] = useState(true); // Estado de validade do CEP
+  const [errorMsg, setErrorMsg] = useState(""); // Mensagem de erro
+
+  // Função de validação de CEP
+  const validateCep = (cep) => {
+    const cepRegex = /^[0-9]{1,8}$/;
+    setIsValidCep(cepRegex.test(cep));
+  };
 
   const consultarCep = async () => {
     setIsLoading(true); // Ativa o indicador de carregamento
@@ -28,9 +35,18 @@ function PostalCode() {
       setUf(data.UF);
     } catch (error) {
       console.error("Erro ao consultar o CEP:", error);
-      // Lide com o erro aqui, por exemplo, mostrando uma mensagem de erro ao usuário.
+      setErrorMsg("CEP não encontrado. Digite um CEP válido.");
+      setIsValidCep(false); // Marca o CEP como inválido
     } finally {
       setIsLoading(false); // Desativa o indicador de carregamento, independentemente do resultado
+    }
+  };
+
+  const handleConsultarClick = () => {
+    if (isValidCep) {
+      consultarCep();
+    } else {
+      setErrorMsg("Digite um CEP válido antes de consultar.");
     }
   };
 
@@ -54,13 +70,29 @@ function PostalCode() {
         </MDBox>
       </MDBox>
       <MDBox p={2}>
-        <MDInput type="text" label="CEP" fullWidth value={cep} onChange={(e) => setCep(e.target.value)} />
+        <MDInput
+          type="text"
+          label="CEP"
+          fullWidth
+          value={cep}
+          onChange={(e) => {
+            const newCep = e.target.value;
+            setCep(newCep);
+            setErrorMsg(""); // Limpa a mensagem de erro ao digitar
+            validateCep(newCep); // Chame a função de validação ao alterar o valor do CEP
+          }}
+        />
+        {isValidCep ? null : (
+          <MDTypography variant="caption" color="error">
+            {errorMsg}
+          </MDTypography>
+        )}
       </MDBox>
       <MDBox p={2}>
         <MDButton
           variant="gradient"
           color="info"
-          onClick={consultarCep}
+          onClick={handleConsultarClick}
           disabled={isLoading} // Desativa o botão durante o carregamento
         >
           {isLoading ? "Consultando..." : "Consultar"}

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import axios from "axios"; // Importe o Axios ou a biblioteca que você está usando para fazer chamadas à API.
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
@@ -21,6 +21,7 @@ function Address() {
 
   const [menu, setMenu] = useState(null);
   const [addressData, setAddressData] = useState([]); // Estado para armazenar os dados da API.
+  const [isLoading, setIsLoading] = useState(false);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
@@ -38,6 +39,12 @@ function Address() {
       setIsLoading(false); // Desativa o indicador de carregamento, independentemente do resultado
     }
   };
+
+  // Use o useEffect para chamar fetchAddresses quando o componente for montado
+  useEffect(() => {
+    fetchAddresses();
+  }, []); // O array vazio assegura que isso só aconteça uma vez após a montagem do componente
+
 
   const renderMenu = (
     <Menu
